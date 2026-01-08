@@ -88,8 +88,8 @@ def main() -> int:
         print("CUDA init FAILED:", repr(e))
 
     try:
-        WhisperModel(args.model, device="cpu", compute_type="int8")
-        print(f"CPU init OK (model={args.model}, compute=int8)")
+        WhisperModel(args.model, device="cpu", compute_type="float32")
+        print(f"CPU init OK (model={args.model}, compute=float32)")
     except Exception as e:
         print("CPU init FAILED:", repr(e))
         return 4
@@ -101,7 +101,7 @@ def main() -> int:
             return 5
 
         device = "cuda" if cuda_ok else "cpu"
-        compute = args.compute if cuda_ok else "int8"
+        compute = args.compute if cuda_ok else "float32"
         print()
         print("=== Transcription test ===")
         print(f"Using device={device}, compute={compute}, wav={wav}")
